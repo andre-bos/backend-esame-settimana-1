@@ -6,15 +6,15 @@ include_once 'partials/head.php';
 include_once 'partials/navbar.php';
 require_once 'config.php';
 
-    print_r($_SESSION['errori']);
-    print_r($_SESSION['success']);
+print_r($_SESSION['errori']);
+print_r($_SESSION['success']);
 ?>
 
 <body>
 <div class="container">
     <div class="row">
         <h2 class="text-center mt-5">Aggiungi un libro</h2>
-        <form class="mt-5" action="controller.php?action=add_book" method="post">
+        <form class="mt-5" action="controller.php?action=edit" method="post">
             <div class="mb-3">
                 <div class="row g-3">
                     <div class="col-auto">
@@ -23,10 +23,10 @@ require_once 'config.php';
                     <div class="col-auto">
                         <input type="text" id="titolo" name="titolo" class="form-control" aria-description="Titolo del libro"
                                value="<?php
-                        if (isset($_SESSION['datiInseriti']['titolo'])) {
-                            echo $_SESSION['datiInseriti']['titolo'];
-                        }
-                        ?>">
+                               if (isset($_SESSION['datiInseriti']['titolo'])) {
+                                   echo $_SESSION['datiInseriti']['titolo'];
+                               }
+                               ?>">
                     </div>
                     <?php
                     if (isset($_SESSION['errori']['titolo'])) { ?>
@@ -70,10 +70,10 @@ require_once 'config.php';
                     <div class="col-auto">
                         <input type="text" id="anno" name="anno" class="form-control" aria-description="Anno di pubblicazione"
                                value="<?php
-                        if (isset($_SESSION['datiInseriti']['anno'])) {
-                            echo $_SESSION['datiInseriti']['anno'];
-                        }
-                        ?>">
+                               if (isset($_SESSION['datiInseriti']['anno'])) {
+                                   echo $_SESSION['datiInseriti']['anno'];
+                               }
+                               ?>">
                     </div>
                     <?php
                     if (isset($_SESSION['errori']['anno'])) { ?>
@@ -92,10 +92,10 @@ require_once 'config.php';
                     <div class="col-auto">
                         <input type="text" id="genere" name="genere" class="form-control" aria-description="Genere letterario"
                                value="<?php
-                        if (isset($_SESSION['datiInseriti']['genere'])) {
-                            echo $_SESSION['datiInseriti']['genere'];
-                        }
-                        ?>">
+                               if (isset($_SESSION['datiInseriti']['genere'])) {
+                                   echo $_SESSION['datiInseriti']['genere'];
+                               }
+                               ?>">
                     </div>
                     <?php
                     if (isset($_SESSION['errori']['genere'])) { ?>

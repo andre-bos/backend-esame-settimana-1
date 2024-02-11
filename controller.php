@@ -1,3 +1,4 @@
 <?php
 require_once 'functions.php';
-print_r($_REQUEST);
+
+validaDati($_REQUEST);

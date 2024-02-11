@@ -9,6 +9,9 @@
                 <li class="nav-item">
                     <a class="nav-link" href="add_book.php">Aggiungi un libro</a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="index.php">Lista libri</a>
+                </li>
             </ul>
         </div>
     </nav>
