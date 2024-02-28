@@ -1,5 +1,7 @@
 <?php
 
+session_start();
+
 require_once 'config.php';
 
 function validaDati($datiForm) {
@@ -36,30 +38,36 @@ function validaDati($datiForm) {
     //altrimenti, rimarranno disponibili in sessione per poter essere corretti e inviati nuovamente dall'utente tramite il form.
 
 
-    session_start();
+
     $_SESSION['datiInseriti'] = [
         'titolo' => $titolo,
         'autore' => $autore,
         'anno' => $anno,
         'genere' => $genere
     ];
-    session_write_close();
 
-    if(empty($errori) || $_REQUEST['action'] === 'add_book') {
-        inserisciDati($_SESSION['datiInseriti']);
-        session_start();
-        $_SESSION['success'] = 'Dati inseriti correttamente';
-        session_write_close();
-        header('Location: add_book.php');
+    if(empty($errori)) {
+        if($_REQUEST['action'] === 'add_book') {
+            inserisciDati($_SESSION['datiInseriti']);
+            $_SESSION['success'] = 'Dati inseriti correttamente';
+            header('Location: add_book.php');
+            exit;
+        } elseif($_REQUEST['action'] === 'edit_book') {
+            modificaDati($_REQUEST['id'], $_SESSION['datiInseriti']);
+            $_SESSION['success'] = 'Dati modificati correttamente';
+            header('Location: index.php?result=modifyOk');
+            exit;
+        }
     } else {
-        session_start();
         $_SESSION['errori'] = $errori;
-        header('Location: add_book.php');
+        if($_REQUEST['action'] === 'add_book') {
+            header('Location: add_book.php');
+            exit;
+        } elseif($_REQUEST['action'] === 'edit_book') {
+            header('Location: edit_book.php');
+            exit;
+        }
     }
-}
-
-if (empty($errori) || $_REQUEST['action'] === 'edit') {
-    modificaDati($id);
 }
 
 function inserisciDati($dati) {
@@ -68,6 +76,22 @@ function inserisciDati($dati) {
     $db_connect->query($sqlinstruction);
 }
 
-function modificaDati($id) {
+function modificaDati($id, $dati) {
+    global $db_connect;
+    $sqlinstruction = "UPDATE libri SET
+                    titolo = '" . $dati['titolo'] . "',
+                    autore = '" . $dati['autore']. "',
+                    anno_pubblicazione = '" . $dati['anno']. "',
+                    genere = '" . $dati['genere']. "'
+                    WHERE id = " . $id . ";";
 
+    $db_connect->query($sqlinstruction);
+
+}
+
+function cancellaDati($id) {
+    global $db_connect;
+    $sqlinstruction = "DELETE FROM libri WHERE id = " . $id;
+    $db_connect->query($sqlinstruction);
+    header('Location: index.php?result=deleteOk');
 }

@@ -41,12 +41,16 @@ if ($allbooks->num_rows === 0) { ?>
                     <td><?=$book['anno_pubblicazione']?></td>
                     <td><?=$book['genere']?></td>
                     <td>
-                        <a href="controller.php?action=edit&id=<?=$book['id']?>" class="btn btn-primary">Modifica</a>
+                        <a href="edit_book.php?action=edit_book&id=<?=$book['id']?>" class="btn btn-primary">Modifica</a>
                         <a href="controller.php?action=delete&id=<?=$book['id']?>" class="btn btn-danger">Cancella</a>
                     </td>
                 </tr> <?php } ?>
             </tbody>
         </table>
+        <?php
+        if($_REQUEST['result'] === 'modifyOk') { ?>
+            <p class="text-success">Libro modificato correttamente!</p>
+        <?php } ?>
     </div>
 <?php }
 include_once 'partials/footer.php';
